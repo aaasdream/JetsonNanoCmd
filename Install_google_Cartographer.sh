@@ -3,7 +3,7 @@
 #看這個網址安裝即可
 sudo apt-get update
 sudo apt-get install -y python-wstool python-rosdep ninja-build
-sudo apt-get install ros-indigo-pcl-conversions
+sudo apt-get install -y ros-melodic-pcl-conversions
 cd ~
 mkdir catkin_googlews
 cd catkin_googlews
@@ -21,6 +21,5 @@ echo "source ~/catkin_googlews/install_isolated/setup.bash" >> ~/.bashrc
 echo "Download and run demo."
 wget -P ~/Downloads https://storage.googleapis.com/cartographer-public-data/bags/backpack_2d/cartographer_paper_deutsches_museum.bag
 roslaunch cartographer_ros demo_backpack_2d.launch bag_filename:=${HOME}/Downloads/cartographer_paper_deutsches_museum.bag
-
 
 
