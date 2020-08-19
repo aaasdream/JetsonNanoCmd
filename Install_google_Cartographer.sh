@@ -3,6 +3,7 @@
 #看這個網址安裝即可
 sudo apt-get update
 sudo apt-get install -y python-wstool python-rosdep ninja-build
+sudo apt-get install ros-indigo-pcl-conversions
 cd ~
 mkdir catkin_googlews
 cd catkin_googlews
