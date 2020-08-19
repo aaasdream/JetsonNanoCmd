@@ -18,4 +18,9 @@ rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
 catkin_make_isolated --install --use-ninja
 echo "source ~/catkin_googlews/install_isolated/setup.bash" >> ~/.bashrc
 
+echo "Download and run demo."
+wget -P ~/Downloads https://storage.googleapis.com/cartographer-public-data/bags/backpack_2d/cartographer_paper_deutsches_museum.bag
+roslaunch cartographer_ros demo_backpack_2d.launch bag_filename:=${HOME}/Downloads/cartographer_paper_deutsches_museum.bag
+
+
 
