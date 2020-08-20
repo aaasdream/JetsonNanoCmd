@@ -1,5 +1,6 @@
 #!/bin/bash
 #PC版本與嵌入式裝置是不相同的 ，PC版本如下網址
+https://google-cartographer.readthedocs.io/en/latest/ 看一下這裡
 #  https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html#building-installation
 # 嵌入式版本 如下網址
 #https://google-cartographer-ros-for-turtlebots.readthedocs.io/en/latest/
