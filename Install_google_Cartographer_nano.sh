@@ -1,22 +1,34 @@
 #!/bin/bash
 #https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html#building-installation
+#https://google-cartographer-ros-for-turtlebots.readthedocs.io/en/latest/
 #看這個網址安裝即可
+
+# Install wstool and rosdep.
 sudo apt-get update
 sudo apt-get install -y python-wstool python-rosdep ninja-build
-sudo apt-get install -y ros-melodic-pcl-conversions
-cd ~
+
+# Create a new workspace in 'catkin_ws'.
 mkdir catkin_googlews
 cd catkin_googlews
 wstool init src
-wstool merge -t src https://raw.githubusercontent.com/googlecartographer/cartographer_ros/master/cartographer_ros.rosinstall
+
+# Merge the cartographer_turtlebot.rosinstall file and fetch code for dependencies.
+wstool merge -t src https://raw.githubusercontent.com/googlecartographer/cartographer_turtlebot/master/cartographer_turtlebot.rosinstall
 wstool update -t src
 
-src/cartographer/scripts/install_proto3.sh
+# Install deb dependencies.
+# The command 'sudo rosdep init' will print an error if you have already
+# executed it since installing ROS. This error can be ignored.
 sudo rosdep init
 rosdep update
 rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
+
+# Build and install.
 catkin_make_isolated --install --use-ninja
+source install_isolated/setup.bash
 echo "source ~/catkin_googlews/install_isolated/setup.bash" >> ~/.bashrc
+
+
 
 echo "Download and run demo."
 wget -P ~/Downloads https://storage.googleapis.com/cartographer-public-data/bags/backpack_2d/cartographer_paper_deutsches_museum.bag
