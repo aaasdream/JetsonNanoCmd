@@ -1,7 +1,10 @@
 #!/bin/bash
-#https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html#building-installation
+#PC版本與嵌入式裝置是不相同的 ，PC版本如下網址
+#  https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html#building-installation
+# 嵌入式版本 如下網址
 #https://google-cartographer-ros-for-turtlebots.readthedocs.io/en/latest/
-#看這個網址安裝即可
+# 
+# 本文件使用嵌入式版本指令安裝，給jetson nano使用
 
 # Install wstool and rosdep.
 sudo apt-get update
