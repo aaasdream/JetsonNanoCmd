@@ -117,6 +117,27 @@ cmake \
 make -j2
 
 
+
+echo "ROS Package"
+sudo apt install -y ros-${ROS_DISTRO}-image-transport
+
+cd ~/openvslam_pkg/openvslam/ros
+git clone --branch ${ROS_DISTRO} --depth 1 https://github.com/ros-perception/vision_opencv.git
+cp -r vision_opencv/cv_bridge src/
+rm -rf vision_opencv
+
+#ros PangolinViewer config
+catkin_make \
+    -DBUILD_WITH_MARCH_NATIVE=ON \
+    -DUSE_PANGOLIN_VIEWER=ON \
+    -DUSE_SOCKET_PUBLISHER=OFF \
+    -DUSE_STACK_TRACE_LOGGER=ON \
+    -DBOW_FRAMEWORK=DBoW2
+
+echo "source ~/openvslam_pkg/openvslam/ros/devel/setup.bash" >> ~/.bashrc
+source ~/openvslam_pkg/openvslam/ros/devel/setup.bash
+
+
 echo "Download and run Demo"
 cd ~/openvslam_pkg/openvslam/build
 # download an ORB vocabulary from Google Drive
