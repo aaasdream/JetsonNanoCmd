@@ -20,16 +20,12 @@ cd ~/catkin_ws/src
 catkin_init_workspace
 cd ~/catkin_ws/
 catkin_make
-
-
-echo "USB CAMERA"
-cd ~/catkin_ws/src
-git clone https://github.com/bosch-ros-pkg/usb_cam.git  
-cd ..  
-catkin_make  
+ 
 
 source devel/setup.bash
 echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+
+sudo apt-get  -y install ros-$ROS_DISTRO-usb-cam
 
 #echo "Finish. test roscore"
 roscore
