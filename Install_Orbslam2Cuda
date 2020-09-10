@@ -98,3 +98,4 @@ export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:~/orbslam2/ORB_SLAM2_CUDA/Examples/R
 chmod +x build_ros.sh
 ./build_ros.sh
 
+echo "export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:~/orbslam2/ORB_SLAM2_CUDA/Examples/ROS" >> ~/.bashrc
