@@ -92,4 +92,9 @@ tar xvf ~/Downloads/rgbd_dataset_freiburg1_xyz.tgz
 ./build/mono_tum ./Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml /home/aking/Downloads/rgbd_dataset_freiburg1_xyz true
 
 
+echo "==================ROS Package========================="
+cd ~/orbslam2/ORB_SLAM2_CUDA/
+export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:~/orbslam2/ORB_SLAM2_CUDA/Examples/ROS
+chmod +x build_ros.sh
+./build_ros.sh
 
