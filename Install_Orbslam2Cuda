@@ -1,0 +1,94 @@
+#參考網址https://github.com/thien94/ORB_SLAM2_CUDA
+#Jetson Nano 的 image 必須使用舊版的
+#https://developer.nvidia.com/embedded/dlc/jetson-nano-dev-kit-sd-card-image
+#4.2這個版本測試成功，下次可以測試4.3
+#https://developer.nvidia.com/jetson-nano-sd-card-image-r3231
+#這個image尚未測試過，可以測試看看
+
+#make過程有錯誤 Eigrn 請改用舊版3.2.1 但沒有改用新版的 也是可以編譯成功
+
+#請先增加虛擬記憶體空間
+#https://medium.com/@jackycsie/jetson-nano-9d89cbf2fc18 這個網址有教學
+
+
+
+
+
+
+sudo apt update
+sudo apt install -y build-essential cmake git libgtk2.0-dev pkg-config  libswscale-dev libtbb2 libtbb-dev
+sudo apt install -y python-dev python3-dev python-numpy python3-numpy
+sudo apt install -y curl
+sudo apt install -y  libjpeg-dev libpng-dev libtiff-dev libjasper-dev 
+sudo apt install -y libavcodec-dev libavformat-dev
+sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+sudo apt install -y libv4l-dev v4l-utils qv4l2 v4l2ucp libdc1394-22-dev
+
+mkdir -p ~/orbslam2
+cd ~/orbslam2
+
+curl -L https://github.com/opencv/opencv/archive/4.1.0.zip -o opencv-4.1.0.zip
+curl -L https://github.com/opencv/opencv_contrib/archive/4.1.0.zip -o opencv_contrib-4.1.0.zip
+unzip opencv-4.1.0.zip 
+unzip opencv_contrib-4.1.0.zip 
+cd opencv-4.1.0/
+
+mkdir build
+cd build/
+cmake     -D WITH_CUDA=ON \
+        -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-4.1.0/modules \
+        -D WITH_GSTREAMER=ON \
+        -D WITH_LIBV4L=ON \
+        -D BUILD_opencv_python2=ON \
+        -D BUILD_opencv_python3=ON \
+        -D BUILD_TESTS=OFF \
+        -D BUILD_PERF_TESTS=OFF \
+        -D BUILD_EXAMPLES=OFF \
+        -D CMAKE_BUILD_TYPE=RELEASE \
+        -D CMAKE_INSTALL_PREFIX=/usr/local \
+        ..
+make -j2
+sudo make install
+
+echo "==============Install Pangolin=========================="
+sudo apt install -y libgl1-mesa-dev
+sudo apt install -y libglew-dev
+sudo apt install -y libpython2.7-dev
+sudo apt install -y pkg-config
+sudo apt install -y ffmpeg libavcodec-dev libavutil-dev libavformat-dev  libswscale-dev libavdevice-dev
+sudo apt install -y libdc1394-22-dev libraw1394-dev
+sudo apt install -y libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev
+
+cd ~/orbslam2
+git clone https://github.com/stevenlovegrove/Pangolin.git
+cd Pangolin
+mkdir build && cd build
+cmake \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr/local \
+    ..
+make
+sudo make install 
+
+
+
+#Eigen 3
+sudo apt-get install -y libblas-dev
+sudo apt-get install -y liblapack-dev
+sudo apt install  -y libeigen3-dev
+#PCL for ROS:
+sudo apt-get install -y libopenni2-dev
+sudo apt-get install -y ros-melodic-pcl-ros
+echo "=============install Orb slam CUDA======================"
+cd ~/orbslam2
+git clone https://github.com/hoangthien94/ORB_SLAM2_CUDA.git ORB_SLAM2_CUDA
+cd ORB_SLAM2_CUDA 
+git checkout jetson_nano
+chmod +x build.sh
+./build.sh
+
+
+./build/mono_tum ./Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml /home/aking/Downloads/rgbd_dataset_freiburg1_xyz true
+
+
+
