@@ -87,7 +87,8 @@ git checkout jetson_nano
 chmod +x build.sh
 ./build.sh
 
-
+wget -P ~/Downloads https://vision.in.tum.de/rgbd/dataset/freiburg1/rgbd_dataset_freiburg1_xyz.tgz
+tar xvf ~/Downloads/rgbd_dataset_freiburg1_xyz.tgz
 ./build/mono_tum ./Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml /home/aking/Downloads/rgbd_dataset_freiburg1_xyz true
 
 
