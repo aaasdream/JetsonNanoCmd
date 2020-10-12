@@ -11,7 +11,11 @@ sudo jtop
 
 
 
-
+#加入虛擬記憶體swap
+sudo fallocate -l 8G /8GB.swap
+sudo chmod 0644 /8GB.swap
+sudo mkswap /8GB.swap
+sudo swapon /8GB.swap
 
 
 
