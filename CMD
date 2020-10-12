@@ -1,8 +1,13 @@
 rosrun ORB_SLAM3 Mono /home/aking/orbslam3/ORB_SLAM3/Vocabulary/ORBvoc.txt  ~/orbslam3/ORB_SLAM3/Examples/Monocular/TUM1.yaml
-
 roslaunch jetson_camera aking_cam1.launch 
-
 rosrun camera_calibration cameracalibrator.py --size 7x5 --square 0.0265 image:=/camera/image_raw  --no-service-check
+
+
+#加入CPU GPU 觀看工具
+sudo apt-get install python-pip python-dev build-essential 
+sudo pip install --upgrade pip
+sudo -H pip install jetson-stats
+sudo jtop
 
 
 
