@@ -1,6 +1,37 @@
-rosrun ORB_SLAM3 Mono /home/aking/orbslam3/ORB_SLAM3/Vocabulary/ORBvoc.txt  ~/orbslam3/ORB_SLAM3/Examples/Monocular/TUM1.yaml
+
+#vins-mono執行方式
 roslaunch jetson_camera aking_cam1.launch 
+sudo chmod 777 /dev/i2c*
+python ~/catkin_ws/src/mpu6050/src/aking6050.py 
+roslaunch vins_estimator euroc.launch 
+roslaunch vins_estimator vins_rviz.launch
+
+
+rosrun ORB_SLAM3 Mono /home/aking/orbslam3/ORB_SLAM3/Vocabulary/ORBvoc.txt  ~/orbslam3/ORB_SLAM3/Examples/Monocular/TUM1.yaml
+
+
+rosrun ORB_SLAM3 Mono /home/aking/orbslam3/ORB_SLAM3/Vocabulary/ORBvoc.txt  ~/orbslam3/ORB_SLAM3/Examples/Monocular/TUM640.yaml
+
+
+rosrun camera_calibration cameracalibrator.py --size 7x5 --square 0.048 image:=/camera/image_raw  --no-service-check
+
+
+
+
+
+
+
+
+#orb slam3執行方式
+rosrun ORB_SLAM3 Mono /home/aking/orbslam3/ORB_SLAM3/Vocabulary/ORBvoc.txt  ~/orbslam3/ORB_SLAM3/Examples/Monocular/TUM1.yaml
+roslaunch jetson_camera aking_cam.launch 
 rosrun camera_calibration cameracalibrator.py --size 7x5 --square 0.0265 image:=/camera/image_raw  --no-service-check
+
+#orb slam3 + IMU
+sudo chmod 777 /dev/i2c*
+python ~/catkin_ws/src/mpu6050/src/aking6050.py 
+rosrun ORB_SLAM3 Mono_inertial /home/aking/catkin_ws/src/ORB_SLAM3-ROS-Interface/Vocabulary/ORBvoc.bin  /home/aking/orbslam3/ORB_SLAM3/Examples/Monocular-Inertial/TUM1.yaml
+
 
 
 #加入CPU GPU 觀看工具
