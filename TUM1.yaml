@@ -5,22 +5,23 @@
 #--------------------------------------------------------------------------------------------
 Camera.type: "PinHole"
 # Camera calibration and distortion parameters (OpenCV) 
-Camera.fx: 190.731745
-Camera.fy: 192.531412
-Camera.cx: 197.709040
-Camera.cy: 163.253359
+Camera.fx: 197.617941
+Camera.fy: 199.695102
+Camera.cx: 197.072120
+Camera.cy: 154.760074
 
 # Equidistant distortion 0.0034823894022493434, 0.0007150348452162257, -0.0020532361418706202, 0.00020293673591811182
 #Camera.bFishEye: 1
 #-0.244455 0.038586 -0.002548 -0.001341 0.000000
-Camera.k1: -0.244455
-Camera.k2: 0.038586
-Camera.p1: -0.002548
-Camera.p2: -0.001341
+#-0.248723 0.038806 0.000696 -0.001388 0.000000
+Camera.k1: -0.248723
+Camera.k2: 0.038806
+Camera.p1: 0.000696
+Camera.p2: -0.001388
 Camera.p3: 0.0
 
 # Camera frames per second 
-Camera.fps: 21.0
+Camera.fps: 10.5
 
 # Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
 Camera.RGB: 1
@@ -55,7 +56,7 @@ ORBextractor.minThFAST: 7
 Viewer.KeyFrameSize: 0.05
 Viewer.KeyFrameLineWidth: 1
 Viewer.GraphLineWidth: 0.9
-Viewer.PointSize:2
+Viewer.PointSize: 2
 Viewer.CameraSize: 0.08
 Viewer.CameraLineWidth: 3
 Viewer.ViewpointX: 0
