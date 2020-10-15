@@ -1,11 +1,8 @@
-cd ~/catkin_ws/src
-git clone https://github.com/ros-perception/vision_opencv
-cd ~/catkin_ws
-catkin_make
-source devel/setup.bash
+sudo apt-get install ros-${ROS_DISTRO}-cv-bridge
+sudo apt-get install ros-${ROS_DISTRO}-vision-opencv
 
 cd ~/catkin_ws/src
-https://github.com/sfalexrog/jetson_camera
+git clone https://github.com/sfalexrog/jetson_camera
 cd ~/catkin_ws
 catkin_make
 source devel/setup.bash
