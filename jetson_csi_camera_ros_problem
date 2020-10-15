@@ -23,13 +23,13 @@ I changed
 
 set(cv_bridge_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "include;/usr/include/opencv;/usr/include " STREQUAL " ")
+if(NOT "include;/usr/include;/usr/include/opencv " STREQUAL " ")
   set(cv_bridge_INCLUDE_DIRS "")
-  set(_include_dirs "include;/usr/include/opencv;/usr/include")
-to
+  set(_include_dirs "include;/usr/include;/usr/include/opencv")
+  if(NOT "https://github.com/ros-perception/vision_opencv/issues " STREQUAL " ")
 
 set(cv_bridge_FOUND_CATKIN_PROJECT TRUE)
-if(NOT "include;/usr/local/include/opencv" STREQUAL " ")
+if(NOT "include;/usr/include;/usr/include/opencv " STREQUAL " ")
   set(cv_bridge_INCLUDE_DIRS "")
-  set(_include_dirs "/usr/local/include/opencv;/usr/include;/usr/local/include")
-In fact I just changed usr/include to /usr/local/include. This solved my problem. But I do not think it the correct way to do (?).
+  set(_include_dirs "include;/usr/include;/usr/include/opencv4")
+  if(NOT "https://github.com/ros-perception/vision_opencv/issues " STREQUAL " ")
