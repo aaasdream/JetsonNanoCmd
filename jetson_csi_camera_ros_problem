@@ -1,0 +1,35 @@
+-- ==> add_subdirectory(jetson_camera)
+CMake Error at /opt/ros/melodic/share/cv_bridge/cmake/cv_bridgeConfig.cmake:113 (message):
+  Project 'cv_bridge' specifies '/usr/include/opencv' as an include dir,
+  which is not found.  It does neither exist as an absolute directory nor in
+  '${{prefix}}//usr/include/opencv'.  Check the issue tracker
+  'https://github.com/ros-perception/vision_opencv/issues' and consider
+  creating a ticket if the problem has not been reported yet.
+Call Stack (most recent call first):
+  /opt/ros/melodic/share/catkin/cmake/catkinConfig.cmake:76 (find_package)
+  jetson_camera/CMakeLists.txt:10 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/aking/catkin_aking/build/CMakeFiles/CMakeOutput.log".
+See also "/home/aking/catkin_aking/build/CMakeFiles/CMakeError.log".
+Invoking "cmake" failed
+
+
+https://stackoverflow.com/questions/37274190/how-to-link-opencv-to-ros-indigo-catkin-with-cmake-ubuntu-14-04
+Finally, I modified file /opt/ros/indigo/share/cv_bridge/cmake/cv_bridgeConfig.cmake
+
+I changed
+
+set(cv_bridge_FOUND_CATKIN_PROJECT TRUE)
+
+if(NOT "include;/usr/include/opencv;/usr/include " STREQUAL " ")
+  set(cv_bridge_INCLUDE_DIRS "")
+  set(_include_dirs "include;/usr/include/opencv;/usr/include")
+to
+
+set(cv_bridge_FOUND_CATKIN_PROJECT TRUE)
+if(NOT "include;/usr/local/include/opencv" STREQUAL " ")
+  set(cv_bridge_INCLUDE_DIRS "")
+  set(_include_dirs "/usr/local/include/opencv;/usr/include;/usr/local/include")
+In fact I just changed usr/include to /usr/local/include. This solved my problem. But I do not think it the correct way to do (?).
