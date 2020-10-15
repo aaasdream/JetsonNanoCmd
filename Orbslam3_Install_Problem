@@ -1,111 +1,142 @@
-sudo apt update
-sudo apt install -y build-essential cmake git libgtk2.0-dev pkg-config  libswscale-dev libtbb2 libtbb-dev
-sudo apt install -y python-dev python3-dev python-numpy python3-numpy
-sudo apt install -y curl
-sudo apt install -y  libjpeg-dev libpng-dev libtiff-dev libjasper-dev 
-sudo apt install -y libavcodec-dev libavformat-dev
-sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
-sudo apt install -y libv4l-dev v4l-utils qv4l2 v4l2ucp libdc1394-22-dev
-sudo apt install -y libpython2.7-dev
-mkdir -p ~/orbslam3
-cd ~/orbslam3
+Configuring and building Thirdparty/DBoW2 ...
+mkdir: cannot create directory ‘build’: File exists
+CMake Error at CMakeLists.txt:31 (message):
+  OpenCV > 2.4.3 not found.
 
 
-folder= "~/orbslam3"
 
-echo "** Remove other OpenCV first"
-#sudo sudo apt-get purge *libopencv*
-
-
-echo "** Install requirement"
-sudo apt-get update
-sudo apt-get install -y build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-sudo apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
-sudo apt-get install -y python2.7-dev python3.6-dev python-dev python-numpy python3-numpy
-sudo apt-get install -y libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev
-sudo apt-get install -y libv4l-dev v4l-utils qv4l2 v4l2ucp
-sudo apt-get install -y curl
-sudo apt-get update
-
-
-echo "** Download opencv-4.1.0"
-cd ~/orbslam3
-curl -L https://github.com/opencv/opencv/archive/4.1.0.zip -o opencv-4.1.0.zip
-curl -L https://github.com/opencv/opencv_contrib/archive/4.1.0.zip -o opencv_contrib-4.1.0.zip
-unzip opencv-4.1.0.zip
-unzip opencv_contrib-4.1.0.zip
-cd opencv-4.1.0/
-
-
-echo "** Apply patch"
-sed -i 's/include <Eigen\/Core>/include <eigen3\/Eigen\/Core>/g' modules/core/include/opencv2/core/private.hpp
-sed -i 's/{CUDNN_INCLUDE_DIR}\/cudnn.h/{CUDNN_INCLUDE_DIR}\/cudnn_version.h/g' cmake/FindCUDNN.cmake
-
-
-echo "** Building..."
-mkdir release
-cd release/
-cmake -D WITH_CUDA=ON -D WITH_CUDNN=OFF -D CUDA_ARCH_BIN="5.3,6.2,7.2" -D CUDA_ARCH_PTX="" -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-4.1.0/modules -D WITH_GSTREAMER=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python2=ON -D BUILD_opencv_python3=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
-make -j2
-sudo make install
-#echo 'export PYTHONPATH=$PYTHONPATH:'$PWD'/python_loader/' >> ~/.bashrc
-#source ~/.bashrc
-
-
-echo "** Install opencv-4.3.0 successfully"
-echo "** Bye :)"
+open CMakeLists.txt
+change 
+	find_package(OpenCV 3)
+to
+	find_package(OpenCV 4)
 
 
 
 
 
-echo "==============Install Pangolin=========================="
-sudo apt install -y libgl1-mesa-dev
-sudo apt install -y libglew-dev
-sudo apt install -y libpython2.7-dev
-sudo apt install -y pkg-config
-sudo apt install -y ffmpeg libavcodec-dev libavutil-dev libavformat-dev  libswscale-dev libavdevice-dev
-sudo apt install -y libdc1394-22-dev libraw1394-dev
-sudo apt install -y libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev
-
-cd ~/orbslam3
-git clone https://github.com/stevenlovegrove/Pangolin.git
-cd Pangolin
-mkdir build && cd build
-cmake \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr/local \
-    ..
-make
-sudo make install 
-
-
-
-#==========================Install Eigen 3======================
-sudo apt-get install -y libblas-dev
-sudo apt-get install -y liblapack-dev
-sudo apt install  -y libeigen3-dev
+/home/aking/orbslam3/ORB_SLAM3/include/CameraModels/KannalaBrandt8.h:105:21: warning: ‘ORB_SLAM3::KannalaBrandt8::precision’ will be initialized after [-Wreorder]
+         const float precision;
+                     ^~~~~~~~~
+/home/aking/orbslam3/ORB_SLAM3/include/CameraModels/KannalaBrandt8.h:95:26: warning:   ‘std::vector<int> ORB_SLAM3::KannalaBrandt8::mvLappingArea’ [-Wreorder]
+         std::vector<int> mvLappingArea;
+                          ^~~~~~~~~~~~~
+/home/aking/orbslam3/ORB_SLAM3/include/CameraModels/KannalaBrandt8.h:65:9: warning:   when initialized here [-Wreorder]
+         KannalaBrandt8(KannalaBrandt8* pKannala) : GeometricCamera(pKannala->mvParameters), precision(pKannala->precision), mvLappingArea(2,0) ,tvr(nullptr) {
+         ^~~~~~~~~~~~~~
+CMakeFiles/Makefile2:289: recipe for target 'CMakeFiles/ORB_SLAM3.dir/all' failed
+make[1]: *** [CMakeFiles/ORB_SLAM3.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+[ 69%] Linking CXX shared library ../../../Thirdparty/g2o/lib/libg2o.so
+[ 69%] Built target g2o
+Makefile:83: recipe for target 'all' failed
+make: *** [all] Error 2
 
 
 
 
-#=====================PCL for ROS:=============================
-sudo apt-get install -y libopenni2-dev
-sudo apt-get install -y ros-melodic-pcl-ros
+
+
+open /ORB_SLAM3/include/CameraModels/KannalaBrandt8.h
+add
+#include <unistd.h>
+
+and 
+include <opencv2/opencv.hpp>
 
 
 
-#==========================ORB SLAM3========================
-cd ~/orbslam3
-git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git ORB_SLAM3
-cd ORB_SLAM3
-chmod +x build.sh
-./build.sh
+
+open build.sh
+
+that 
+change all
+make -j
+
+to 
+
+make -j1
 
 
-#============================ORB SLAM ROS========================================
-cd ~/orbslam3/ORB_SLAM3
-export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:~/orbslam3/ORB_SLAM3/Examples/ROS
-echo "export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:~/orbslam3/ORB_SLAM3/Examples/ROS" >> ~/.bashrc
-chmod +x build_ros.sh
-./build_ros.sh
+
+
+/home/aking/orbslam3/ORB_SLAM3/src/Tracking.cc: In member function ‘cv::Mat ORB_SLAM3::Tracking::GrabImageMonocular(const cv::Mat&, const double&, std::__cxx11::string)’:
+/home/aking/orbslam3/ORB_SLAM3/src/Tracking.cc:1045:38: error: ‘CV_RGB2GRAY’ was not declared in this scope
+             cvtColor(mImGray,mImGray,CV_RGB2GRAY);
+                                      ^~~~~~~~~~~
+
+
+add
+#include <opencv2/imgproc/types_c.h>
+
+
+
+
+/home/aking/orbslam3/ORB_SLAM3/src/LoopClosing.cc:1908:36: error: ‘CV_GRAY2BGR’ was not declared in this scope
+         cv::cvtColor(img_i, img_i, CV_GRAY2BGR);
+                                    ^~~~~~~~~~~
+
+add
+#include <opencv2/imgproc/types_c.h>
+
+FrameDrawer.cc:97:24: error: ‘CV_GRAY2BGR’ was not declared in this scope
+         cvtColor(im,im,CV_GRAY2BGR);
+                        ^~~~~~~~~~~
+add
+#include <opencv2/imgproc/types_c.h>
+
+
+m3/ORB_SLAM3/src/Map.cc: In member function ‘void ORB_SLAM3::Map::printReprojectionError(std::__cxx11::list<ORB_SLAM3::KeyFrame*>&, ORB_SLAM3::KeyFrame*, std::__cxx11::string&, std::__cxx11::string&)’:
+/home/aking/orbslam3/ORB_SLAM3/src/Map.cc:500:36: error: ‘CV_GRAY2BGR’ was not declared in this scope
+         cv::cvtColor(img_i, img_i, CV_GRAY2BGR);
+                                    ^~~~~~~~~~~
+
+add
+#include <opencv2/imgproc/types_c.h>
+
+
+
+/home/aking/orbslam3/ORB_SLAM3/src/Optimizer.cc:6645:46: error: ‘CV_GRAY2BGR’ was not declared in this scope
+                 cv::cvtColor(imLeft, imLeft, CV_GRAY2BGR);
+                                              ^~~~~~~~~~~
+
+add
+#include <opencv2/imgproc/types_c.h>
+
+PnPsolver.cc:728:43: error: ‘CvMat’ does not name a type
+ void PnPsolver::find_betas_approx_3(const CvMat * L_6x10, const CvMat * Rho,
+                                           ^~~~~
+/home/aking/orbslam3/ORB_SLAM3/src/PnPsolver.cc:728:65: error: ‘CvMat’ does not name a type
+ void PnPsolver::find_betas_approx_3(const CvMat * L_6x10, const CvMat * Rho,
+
+ error: ‘CvMat’ has not been declared
+   void fill_M(CvMat * M, const int row, const double * alphas, const double u, const double v);
+
+
+
+add
+#include <opencv2/imgproc/types_c.h>
+#include <opencv2/opencv.hpp>
+using namespace cv;
+
+
+/home/aking/orbslam3/ORB_SLAM3/src/Sim3Solver.cc:307:22: error: ‘CV_REDUCE_SUM’ was not declared in this scope
+     cv::reduce(P,C,1,CV_REDUCE_SUM);
+
+add
+#include <opencv2/imgproc/types_c.h>
+
+
+
+
+ON ./build_ros.sh 
+Build type: Release
+-- Using flag -std=c++11.
+CMake Error at CMakeLists.txt:37 (message):
+  OpenCV > 2.4.3 not found.
+
+edit /home/aking/orbslam3/ORB_SLAM3/Examples/ROS/ORB_SLAM3/CMakeListes.txt
+
+find_package(OpenCV 3.0 QUIET)
+to
+find_package(OpenCV 4.0 QUIET)
