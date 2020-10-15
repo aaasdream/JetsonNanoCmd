@@ -1,0 +1,11 @@
+cd ~/catkin_ws/src
+git clone https://github.com/ros-perception/vision_opencv
+cd ~/catkin_ws
+catkin_make
+source devel/setup.bash
+
+cd ~/catkin_ws/src
+https://github.com/sfalexrog/jetson_camera
+cd ~/catkin_ws
+catkin_make
+source devel/setup.bash
