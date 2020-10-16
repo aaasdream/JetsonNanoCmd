@@ -27,6 +27,7 @@ wstool update -t src
 src/cartographer/scripts/install_proto3.sh
 sudo rosdep init
 rosdep update
+source /opt/ros/melodic/setup.bash
 rosdep install --from-paths src --ignore-src --rosdistr==${ROS_DISTRO} -y -i -r
 catkin_make_isolated --install --use-ninja
 
@@ -36,6 +37,5 @@ echo "source ~/catkin_google_ws/install_isolated/setup.bash" >> ~/.bashrc
 echo "Download and run demo."
 wget -P ~/Downloads https://storage.googleapis.com/cartographer-public-data/bags/backpack_2d/cartographer_paper_deutsches_museum.bag
 roslaunch cartographer_ros demo_backpack_2d.launch bag_filename:=${HOME}/Downloads/cartographer_paper_deutsches_museum.bag
-
 
 
