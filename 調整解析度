@@ -1,0 +1,18 @@
+
+EndSection編輯以下檔案
+sudo gedit /etc/X11/xorg.conf
+
+加入如下設定
+Section "Screen"
+Identifier "Screen0"
+Monitor    "Monitor0"
+    SubSection "Display"
+    Viewport   0 0
+    Modes "1280x720"
+    Depth   24 
+    Virtual 1280 720
+EndSubSection
+
+
+
+
