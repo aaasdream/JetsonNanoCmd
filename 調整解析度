@@ -1,6 +1,6 @@
 
 EndSection編輯以下檔案
-sudo gedit /etc/X11/xorg.conf
+sudo nano /etc/X11/xorg.conf
 
 加入如下設定
 Section "Screen"
