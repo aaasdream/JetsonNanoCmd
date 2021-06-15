@@ -7,8 +7,8 @@ sudo apt install -y libavcodec-dev libavformat-dev
 sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 sudo apt install -y libv4l-dev v4l-utils qv4l2 v4l2ucp libdc1394-22-dev
 
-mkdir -p ~/orbslam2
-cd ~/orbslam2
+mkdir -p ~/opencv_pack
+cd ~/opencv_pack
 
 curl -L https://github.com/opencv/opencv/archive/4.1.0.zip -o opencv-4.1.0.zip
 curl -L https://github.com/opencv/opencv_contrib/archive/4.1.0.zip -o opencv_contrib-4.1.0.zip
@@ -30,5 +30,5 @@ cmake     -D WITH_CUDA=ON \
         -D CMAKE_BUILD_TYPE=RELEASE \
         -D CMAKE_INSTALL_PREFIX=/usr/local \
         ..
-make -j2
+make -j4
 sudo make install
