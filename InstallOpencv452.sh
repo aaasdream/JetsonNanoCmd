@@ -7,7 +7,8 @@
 # and any modifications thereto.  Any use, reproduction, disclosure or
 # distribution of this software and related documentation without an express
 # license agreement from NVIDIA Corporation is strictly prohibited.
-#
+#如果裝完opencv 內的cv2版本不是 4.5.2 那就代表pip 的套件還在存在著
+#所以請  pip3 uninstall opencv-python  移除pip 的 opencv-python
 
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <Install Folder>"
@@ -16,7 +17,7 @@ fi
 folder="$1"
 
 
-echo "** Remove OpenCV4.1 first"
+echo "** Remove OpenCV4.5.2 first"
 sudo apt-get purge *libopencv*
 
 echo "** Install requirement"
