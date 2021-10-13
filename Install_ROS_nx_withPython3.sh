@@ -12,6 +12,7 @@ sudo apt install -y ros-melodic-desktop-full --fix-missing
 echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 source /opt/ros/melodic/setup.bash
+sudo apt install -y python-rosdep
 sudo rosdep init
 rosdep update
 
