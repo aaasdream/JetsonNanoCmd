@@ -16,6 +16,12 @@ sudo apt install -y python-rosdep
 sudo rosdep init
 rosdep update
 
+sudo apt-get install -y ros-melodic-serial
+sudo apt-get install -y libsdl-image1.2-dev
+sudo apt-get install -y ros-melodic-bfl
+sudo apt-get install -y ros-melodic-tf2-sensor-msgs
+sudo apt-get install -y ros-melodic-yocs-velocity-smoother
+sudo apt-get install -y ros-melodic-joy
 
 
 #建立工作資料夾
